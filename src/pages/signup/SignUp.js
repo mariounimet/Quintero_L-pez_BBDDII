@@ -11,13 +11,13 @@ import Container from '@mui/material/Container';
 import {useState} from 'react';
 //import { NavLink, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"
-import { auth } from '../../app/firebase.js'
+import {createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+import { auth } from '../../app/firebase.js';
 
 const theme = createTheme();
 
 export default function SignUp() {
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -122,7 +122,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="signin" variant="body2">
                  Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>
