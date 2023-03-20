@@ -8,13 +8,17 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import {useState} from 'react';
+//import { NavLink, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-//import {createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"
-//import { auth } from './firebase.js'
+import {createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"
+import { auth } from '../../app/firebase.js'
 
 const theme = createTheme();
 
 export default function SignUp() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('');
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -24,6 +28,22 @@ export default function SignUp() {
     });
    // const userCredentials = await createUserWithEmailAndPassword(auth, data.get('email'), data.get('password'))
     //console.log(userCredentials)
+
+    await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        //navigate("/login")
+        // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ..
+    });
+
   };
 
   return (
@@ -75,6 +95,7 @@ export default function SignUp() {
                   label="Correo Electrónico"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}  
                 />
               </Grid>
               <Grid item xs={12}>
@@ -86,6 +107,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)} 
                 />
               </Grid>
             </Grid>
@@ -94,6 +116,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+             // onClick={onSubmit}  
             >
              Registrarse
             </Button>
