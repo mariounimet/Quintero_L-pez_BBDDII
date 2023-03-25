@@ -13,6 +13,8 @@ import {useState} from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"
 import { auth } from '../../app/firebase.js'
+import { doc, setDoc } from "firebase/firestore"
+import { db } from '../../app/firebase.js';
 
 const theme = createTheme();
 
@@ -22,10 +24,13 @@ export default function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // console.log({
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    //   name: data.get('name')
+    // });
+
+    // console.log(data)
    // const userCredentials = await createUserWithEmailAndPassword(auth, data.get('email'), data.get('password'))
     //console.log(userCredentials)
 
@@ -33,9 +38,16 @@ export default function SignUp() {
     .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
         //navigate("/login")
         // ...
+
+        const u = {
+          name: data.get('firstName') + data.get('lastName') ,
+          email: data.get('email'),        
+        }
+
+        setDoc(doc(db,'users', user.uid), u)
+
     })
     .catch((error) => {
         const errorCode = error.code;
