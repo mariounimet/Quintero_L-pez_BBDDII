@@ -14,7 +14,7 @@ export function Update() {
     useEffect(() => {
         async function fetchMovie() {
             const q = await getDoc(doc(db, 'movies', movieID))
-            setMovie(q.data())
+            setMovie(q)
             setIsloading(false)
         }
         fetchMovie()
@@ -24,13 +24,12 @@ export function Update() {
 
     const onSubmit = async (data) => {
         const newMovie = {
-            titulo: data.titulo != "" ? data.titulo : movie.titulo,
-            sinopsis: data.sinopsis != "" ? data.sinopsis : movie.sinopsis,
+            titulo: data.titulo != "" ? data.titulo : movie.data().titulo,
+            sinopsis: data.sinopsis != "" ? data.sinopsis :  movie.data().sinopsis,
             genero: data.genero,
-            estreno: data.year != "" ? data.year : movie.estreno
+            estreno: data.year != "" ? data.year :  movie.data().estreno
         }
-        await updateDoc(doc(db, 'movies', movie.titulo), newMovie)
-        console.log(newMovie)
+        await updateDoc(doc(db, 'movies', movie.id), newMovie)
     }
 
 

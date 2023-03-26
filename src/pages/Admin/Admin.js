@@ -15,10 +15,11 @@ export default function Admin() {
             const c = collection(db, 'movies')
             const d = await getDocs(c)
             d.forEach((doc) => {
-                mo.push(doc.data())
+                mo.push(doc)
             })
             setMovies(mo)
             setIsloading(false)
+
         }
         fetchData()
     }, [])
@@ -30,7 +31,7 @@ export default function Admin() {
                 <button onClick={() => { navigate('/create') }}>Nueva Pelicula</button>
 
                { movies.map(m =>(
-                    <MovieList movie={m} key={m.titulo}/>
+                    <MovieList movie={m} key={m.id}/>
                 ))}
 
             </div>}

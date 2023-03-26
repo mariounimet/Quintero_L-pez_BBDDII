@@ -15,8 +15,9 @@ export default function Create() {
             sinopsis: data.sinopsis,
             genero: data.genero,
             estreno: data.year
+            
         }
-        setDoc(doc(db, 'movies', data.titulo), movie)
+        setDoc(doc(db, 'movies', uuid()), movie)
     }
 
     return (
