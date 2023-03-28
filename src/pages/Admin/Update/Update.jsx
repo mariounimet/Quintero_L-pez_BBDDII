@@ -63,7 +63,7 @@ export function Update() {
                         </div>
                         <div className='genero'>
                             <select className='' {...register("genero")}>
-                                <option selected>{movie.data().genero}</option>
+                                <option selected>{movie.genero}</option>
                                 <option value="Terror">Terror</option>
                                 <option value="Accion">Accion</option>
                                 <option value="Drama">Drama</option>
