@@ -7,34 +7,18 @@ import { useUser } from "../../Context/userContext"
 
 export default function Dashboard() {
     const [isLoading, setIsloading] = useState(true)
-    const [movies, setMovies] = useState(null)
+    const [movies, setMovies] = useState([])
     const { user, isLoandingUser } = useUser()
 
     useEffect(() => {
-        
+
     }, [])
 
+    const moviesRef = collection(db, "movies")
 
     return (
         <div>
-            {
-                !isLoading && (
-                    <div>
-                        {
-                            movies.map((m, key) => {
-                                return(
-                                    <div>
-                                        aaa
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                )
-            }
-            {
-                console.log(isLoandingUser)
-            }
+            <h1>Mis peliculas</h1>
         </div>
     )
 }
