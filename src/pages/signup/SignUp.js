@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from "react-router-dom";
 import {useState} from 'react';
-//import { NavLink, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js"
 import { auth } from '../../app/firebase.js'
@@ -45,8 +44,9 @@ export default function SignUp() {
         // ...
 
         const u = {
-          name: data.get('firstName') + data.get('lastName') ,
-          email: data.get('email'),        
+          name: data.get('firstName')+ " " + data.get('lastName') ,
+          email: data.get('email'),
+          movies: []        
         }
 
         setDoc(doc(db,'users', user.uid), u)
