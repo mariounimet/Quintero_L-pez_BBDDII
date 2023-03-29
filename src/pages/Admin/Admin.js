@@ -26,15 +26,18 @@ export default function Admin() {
 
     return (
         <>
-            {!isLoading && <div>
-                <h1>Administrador de Peliculas</h1>
-                <button onClick={() => { navigate('/create') }}>Nueva Pelicula</button>
+            {!isLoading && <><div className="d-flex justify-content-center">
+                <h1>Administrador de Películas</h1>
+                </div>
+                <div className="d-flex justify-content-center">
+                <button className="btn btn-success" onClick={() => { navigate('/create'); } }>Nueva Pelicula</button>
+                </div>
+            <div className="">
+                    {movies.map(m => (
+                        <MovieList movie={m} key={m.id} />
+                    ))}
 
-               { movies.map(m =>(
-                    <MovieList movie={m} key={m.id}/>
-                ))}
-
-            </div>}
+                </div></>}
         </>
     )
 }

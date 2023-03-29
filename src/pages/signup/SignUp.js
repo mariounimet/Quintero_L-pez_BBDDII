@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from "react-router-dom";
 import {useState} from 'react';
 //import { NavLink, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -16,22 +17,24 @@ import { auth } from '../../app/firebase.js'
 import { doc, setDoc } from "firebase/firestore"
 import { db } from '../../app/firebase.js';
 
+
 const theme = createTheme();
 
 export default function SignUp() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    //   name: data.get('name')
-    // });
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+      name: data.get('name')
+    });
 
-    // console.log(data)
-   // const userCredentials = await createUserWithEmailAndPassword(auth, data.get('email'), data.get('password'))
+    console.log(data)
+   //const userCredentials = await createUserWithEmailAndPassword(auth, data.get('email'), data.get('password'))
     //console.log(userCredentials)
 
     await createUserWithEmailAndPassword(auth, email, password)
@@ -47,12 +50,14 @@ export default function SignUp() {
         }
 
         setDoc(doc(db,'users', user.uid), u)
+        navigate("/login");
 
     })
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        alert(error.message);
         // ..
     });
 
@@ -128,13 +133,13 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-             // onClick={onSubmit}  
+             //onClick={onSubmit}  
             >
              Registrarse
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                  Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>
