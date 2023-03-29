@@ -1,10 +1,11 @@
-import { collection, query, getDocs, getDoc, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { collection, query, getDocs, getDoc, doc, setDoc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../app/firebase";
 import { useUser } from "../../Context/userContext";
 import { useForm } from 'react-hook-form'
 import styles from "./Reserva.css"
+import {v4 as uuid} from "uuid"
 
 export default function Reserva() {
     const navigate = useNavigate()
@@ -50,6 +51,12 @@ export default function Reserva() {
             await updateDoc(doc(db, 'users', user.id), {
                 movies: arrayUnion(data.movie)
             })
+            setDoc(doc(db, "compras", uuid()), {
+                user: user.id,
+                movie: data.movie,
+                date: Timestamp.now()
+            })
+
 
 
 
