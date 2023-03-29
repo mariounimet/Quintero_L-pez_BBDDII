@@ -1,0 +1,9 @@
+.reservaContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.reservaSelector{
+    padding: 10px;
+    border-radius: 10px;
+}

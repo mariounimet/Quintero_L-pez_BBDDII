@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../app/firebase";
 import { useUser } from "../../Context/userContext";
 import { useForm } from 'react-hook-form'
+import styles from "./Reserva.css"
 
 export default function Reserva() {
     const navigate = useNavigate()
@@ -33,10 +34,10 @@ export default function Reserva() {
 
     const onSubmit = async (data) => {
 
-        const newMovie = {
-            idMovie: data.movie,
-            idUser: user.id
-        }
+        // const newMovie = {
+        //     idMovie: data.movie,
+        //     idUser: user.id
+        // }
 
 
         try {
@@ -47,7 +48,7 @@ export default function Reserva() {
 
             // }
             await updateDoc(doc(db, 'users', user.id), {
-                movies: arrayUnion(newMovie)
+                movies: arrayUnion(data.movie)
             })
 
 
@@ -62,7 +63,7 @@ export default function Reserva() {
     }
 
     return (
-        <div>
+        <div className="reservaContainer">
 
             {(!isLoading && !isLoandingUser) && <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -70,9 +71,9 @@ export default function Reserva() {
 
 
                 <div className='movie' >
-                    <select className='' {...register("movie")}>
+                    <select className='reservaSelector' {...register("movie")}>
                         {movies.map(m => (
-                            <option value={m.id} key={m.id}>{m.data().titulo}</option>
+                            <option value={m.titulo} key={m.id}>{m.data().titulo}</option>
                         ))}
 
 

@@ -18,17 +18,24 @@ export default function Dashboard() {
     
 
     useEffect(() => {
-        const q = query(moviesRef, where("titulo", "in", m))
-        onSnapshot(q, (snapshot) => {
-            let mov = []
-            snapshot.forEach((doc) => {
-                mov.push(doc.data())
-            })
-            setMovies(mov)
-        })
+        console.log(user)
+        
     }, [])
 
     const moviesRef = collection(db, "movies")
+
+    if(user != null){
+        if(user.movies != []){
+            const q = query(moviesRef, where("titulo", "in", user.movies))
+            onSnapshot(q, (snapshot) => {
+                let mov = []
+                snapshot.forEach((doc) => {
+                    mov.push(doc.data())
+                })
+                setMovies(mov)
+            })
+        }
+    }
 
     return (
         <div>
@@ -37,7 +44,9 @@ export default function Dashboard() {
                 {
                     movies.map((m, key) => {
                         return(
-                            <MovieCard tittle={m.titulo} sinopsis={m.sinopsis} direction="/login"/>
+                            <div key={key}>
+                                <MovieCard tittle={m.titulo} sinopsis={m.sinopsis} direction="/login"/>
+                            </div>
                         )
                     })
                 }
