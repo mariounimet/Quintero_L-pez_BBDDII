@@ -24,6 +24,8 @@ export default function Admin() {
         fetchData()
     }, [])
 
+    console.log(movies)
+
     return (
         <>
             {!isLoading && <><div className="d-flex justify-content-center">
@@ -34,7 +36,7 @@ export default function Admin() {
                 </div>
             <div className="">
                     {movies.map(m => (
-                        <MovieList movie={m} key={m.id} />
+                        <MovieList movie={m} key={m.id} setMovies={setMovies} />
                     ))}
 
                 </div></>}
