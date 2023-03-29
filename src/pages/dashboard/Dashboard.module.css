@@ -1,0 +1,16 @@
+.dashTittle{
+    height: 170px;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    
+}
+
+.dashMovies{
+    background-color: black;
+    height: 100vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
