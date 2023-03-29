@@ -49,6 +49,7 @@ export default function SignUp() {
           movies: []        
         }
 
+        alert("Usuario registrado! Ahora inicie sesion");
         setDoc(doc(db,'users', user.uid), u)
         navigate("/login");
 

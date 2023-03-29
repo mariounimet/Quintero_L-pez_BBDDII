@@ -3,10 +3,21 @@ import { Link} from "react-router-dom"
 import { db } from "../../app/firebase"
 import './MovieList.css'
 
-const MovieList = ({movie}) =>{
+const MovieList = ({movie, setMovies}) =>{
     const handleDelete = async () =>{
-        alert('Pelicula eliminada!');
-        await deleteDoc(doc(db, 'movies',movie.id))
+        
+        await deleteDoc(doc(db, 'movies',movie.id)).then(() => {
+            alert('Pelicula eliminada!');
+            setMovies((currentState) => {
+                const index = currentState.findIndex((item) => item.id === movie.id );
+                if (index >= 0 ) {
+                    return [...currentState.slice(0, index), ...currentState.slice(index+1)]
+                } else {
+                    return currentState;
+                }
+                
+            })
+        })
     }
 
     return(
